@@ -73,12 +73,8 @@ contactForm.addEventListener('submit', (e) => {
     }, 3000);
 });
 
-// Add parallax effect to hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero');
-    hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-});
+// Remove parallax effect to fix scrolling issue
+// Hero section will now scroll normally
 
 // Add active state to navigation based on scroll position
 const sections = document.querySelectorAll('section');
