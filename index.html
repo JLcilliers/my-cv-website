@@ -31,15 +31,27 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <canvas id="space-canvas"></canvas>
+        <div class="hero-bg-layer layer-1"></div>
+        <div class="hero-bg-layer layer-2"></div>
+        <div class="hero-bg-layer layer-3"></div>
+        
+        <div class="floating-elements">
+            <div class="floating-element element-1">&lt;/&gt;</div>
+            <div class="floating-element element-2">SEO</div>
+            <div class="floating-element element-3">AI</div>
+            <div class="floating-element element-4">{...}</div>
+            <div class="floating-element element-5">#</div>
+            <div class="floating-element element-6">API</div>
+        </div>
+        
         <div class="hero-container">
-            <h1 class="hero-title">Johan Cilliers</h1>
-            <p class="hero-subtitle">Head of Web Development | SEO Expert | AI Optimization Specialist</p>
-            <div class="hero-buttons">
+            <h1 class="hero-title" data-parallax="title">Johan Cilliers</h1>
+            <p class="hero-subtitle" data-parallax="subtitle">Head of Web Development | SEO Expert | AI Optimization Specialist</p>
+            <div class="hero-buttons" data-parallax="buttons">
                 <a href="#contact" class="btn btn-primary">Get In Touch</a>
                 <a href="#projects" class="btn btn-secondary">View Projects</a>
             </div>
-            <div class="social-links">
+            <div class="social-links" data-parallax="social">
                 <a href="https://github.com/JLcilliers" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/johan-cilliers/" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
                 <a href="mailto:johanlcilliers@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>

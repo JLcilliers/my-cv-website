@@ -73,125 +73,142 @@ contactForm.addEventListener('submit', (e) => {
     }, 3000);
 });
 
-// Light Speed Space Effect
-const canvas = document.getElementById('space-canvas');
-const ctx = canvas.getContext('2d');
+// Smooth Parallax Effects
+const heroSection = document.querySelector('.hero');
+const heroContainer = document.querySelector('.hero-container');
+const floatingElements = document.querySelectorAll('.floating-element');
+const bgLayers = document.querySelectorAll('.hero-bg-layer');
+const parallaxElements = document.querySelectorAll('[data-parallax]');
 
-// Set canvas size
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+// Mouse movement parallax
+let mouseX = 0;
+let mouseY = 0;
+let targetX = 0;
+let targetY = 0;
 
-// Star class
-class Star {
-    constructor() {
-        this.x = Math.random() * canvas.width - canvas.width / 2;
-        this.y = Math.random() * canvas.height - canvas.height / 2;
-        this.z = Math.random() * 1000;
-        this.prevX = this.x;
-        this.prevY = this.y;
-    }
-
-    update(speed) {
-        this.prevX = this.x / this.z;
-        this.prevY = this.y / this.z;
-        this.z -= speed;
-        
-        if (this.z <= 0) {
-            this.x = Math.random() * canvas.width - canvas.width / 2;
-            this.y = Math.random() * canvas.height - canvas.height / 2;
-            this.z = 1000;
-            this.prevX = this.x / this.z;
-            this.prevY = this.y / this.z;
-        }
-    }
-
-    draw() {
-        const x = this.x / this.z;
-        const y = this.y / this.z;
-        const px = this.prevX;
-        const py = this.prevY;
-        
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-        
-        // Draw star trail
-        ctx.beginPath();
-        ctx.moveTo(px + centerX, py + centerY);
-        ctx.lineTo(x + centerX, y + centerY);
-        
-        // Star gets brighter as it gets closer
-        const opacity = 1 - this.z / 1000;
-        const size = (1 - this.z / 1000) * 2;
-        
-        ctx.strokeStyle = `rgba(224, 255, 38, ${opacity})`;
-        ctx.lineWidth = size;
-        ctx.stroke();
-        
-        // Draw star point
-        ctx.beginPath();
-        ctx.arc(x + centerX, y + centerY, size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
-        ctx.fill();
-    }
-}
-
-// Create stars
-const stars = [];
-for (let i = 0; i < 800; i++) {
-    stars.push(new Star());
-}
-
-// Animation
-let speed = 2;
-let targetSpeed = 2;
-
-// Speed up on mouse move
 document.addEventListener('mousemove', (e) => {
-    const mouseX = e.clientX / window.innerWidth;
-    const mouseY = e.clientY / window.innerHeight;
-    targetSpeed = 2 + (mouseX + mouseY) * 8;
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
 });
 
-// Animate
-function animate() {
-    // Fade effect for trails
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+// Smooth animation loop
+function animateParallax() {
+    // Smooth easing
+    targetX += (mouseX - targetX) * 0.1;
+    targetY += (mouseY - targetY) * 0.1;
     
-    // Smooth speed transition
-    speed += (targetSpeed - speed) * 0.05;
-    
-    // Update and draw stars
-    stars.forEach(star => {
-        star.update(speed);
-        star.draw();
+    // Apply parallax to background layers
+    bgLayers.forEach((layer, index) => {
+        const speed = (index + 1) * 10;
+        layer.style.transform = `translate(${targetX * speed}px, ${targetY * speed}px) scale(1.1)`;
     });
     
-    requestAnimationFrame(animate);
-}
-
-animate();
-
-// Add perspective tilt to hero content on mouse move
-const heroContainer = document.querySelector('.hero-container');
-document.addEventListener('mousemove', (e) => {
-    const mouseX = (e.clientX / window.innerWidth - 0.5) * 20;
-    const mouseY = (e.clientY / window.innerHeight - 0.5) * 20;
+    // Apply parallax to floating elements
+    floatingElements.forEach((element, index) => {
+        const speed = (index + 1) * 15;
+        element.style.transform = `translate(${targetX * speed}px, ${targetY * speed}px) rotate(${targetX * 5}deg)`;
+    });
     
-    heroContainer.style.transform = `rotateY(${mouseX}deg) rotateX(${-mouseY}deg)`;
+    // Subtle parallax on hero content
+    if (heroContainer) {
+        heroContainer.style.transform = `translate(${targetX * 5}px, ${targetY * 5}px)`;
+    }
+    
+    requestAnimationFrame(animateParallax);
+}
+animateParallax();
+
+// Scroll-based parallax
+let lastScrollY = window.scrollY;
+
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const delta = scrollY - lastScrollY;
+    
+    // Parallax for hero section elements
+    if (scrollY < window.innerHeight) {
+        parallaxElements.forEach((element) => {
+            const speed = element.dataset.parallax === 'title' ? 0.5 : 
+                         element.dataset.parallax === 'subtitle' ? 0.3 : 
+                         element.dataset.parallax === 'buttons' ? 0.2 : 0.1;
+            
+            element.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+        
+        // Fade out hero on scroll
+        const opacity = 1 - (scrollY / window.innerHeight);
+        heroContainer.style.opacity = Math.max(0, opacity);
+    }
+    
+    lastScrollY = scrollY;
 });
 
-// Reset transform on mouse leave
-document.addEventListener('mouseleave', () => {
-    heroContainer.style.transform = 'rotateY(0deg) rotateX(0deg)';
+// Smooth scroll to sections
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
 });
 
-// Remove parallax effect to fix scrolling issue
-// Hero section will now scroll normally
+// Add viewport-based animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            
+            // Special handling for timeline items
+            if (entry.target.classList.contains('timeline-item')) {
+                const delay = Array.from(entry.target.parentNode.children).indexOf(entry.target) * 100;
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, delay);
+            }
+        }
+    });
+}, observerOptions);
+
+// Observe all animatable elements
+document.querySelectorAll('.timeline-item, .project-card, .skill-category').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'all 0.6s ease';
+    observer.observe(el);
+});
+
+// Skill bars animation
+const skillsSection = document.querySelector('.skills');
+const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const skillBars = entry.target.querySelectorAll('.skill-progress');
+            skillBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    const skill = bar.getAttribute('data-skill');
+                    bar.style.width = skill + '%';
+                }, index * 100);
+            });
+            skillObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+if (skillsSection) {
+    skillObserver.observe(skillsSection);
+}
 
 // Add active state to navigation based on scroll position
 const sections = document.querySelectorAll('section');
