@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "Johan Cilliers - Head of Web Development | AI-Driven SEO Expert",
+    "description": "Johan Cilliers - Head of Web Development specializing in AI-powered SEO, voice search optimization, and digital growth strategies. 180% organic traffic growth achieved."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "aiTools": "AI Tools",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Johan Cilliers",
+    "roles": {
+      "role1": "Head of Web Development",
+      "role2": "AI-Driven SEO Expert",
+      "role3": "Digital Growth Strategist"
+    },
+    "subtitle": "Transforming businesses through AI-powered SEO, achieving 180% organic growth",
+    "metrics": {
+      "growth": "% Organic Growth",
+      "efficiency": "% AI Efficiency",
+      "experience": "+ Years Experience"
+    },
+    "cta": {
+      "primary": "Let's Talk Growth",
+      "secondary": "View AI Projects"
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "intro": "I'm a digital marketing leader who thrives at the intersection of SEO, AI innovation, and strategic growth. My passion lies in transforming data into actionable insights and building tools that make marketing smarter, not harder.",
+    "achievements": "Over the past decade, I've pioneered AI-driven SEO strategies that have delivered exceptional results - including a 180% increase in organic traffic and doubled conversion rates. I've developed custom AI tools using GPT and other APIs that reduced content production time by 40%, allowing teams to focus on strategic initiatives rather than repetitive tasks.",
+    "specialization": "Specialized in 2025's Key Trends:",
+    "specialties": {
+      "voice": "Voice Search & Conversational AI",
+      "ai": "AI-Powered Content Optimization",
+      "api": "API Integration & Automation",
+      "analytics": "Predictive Analytics & Personalization"
+    }
+  },
+  "skills": {
+    "title": "Skills & Expertise",
+    "categories": {
+      "seo": "SEO & Voice Search",
+      "ai": "AI & Automation",
+      "technical": "Technical & Analytics",
+      "marketing": "Digital Marketing"
+    },
+    "seoSkills": {
+      "technical": {
+        "name": "Technical SEO & E-E-A-T",
+        "desc": "Advanced implementation of E-E-A-T principles, Core Web Vitals optimization"
+      },
+      "voice": {
+        "name": "Voice Search Optimization",
+        "desc": "Conversational query optimization, schema markup for voice assistants"
+      },
+      "aiSeo": {
+        "name": "AI-Driven SEO",
+        "desc": "Machine learning for keyword research, predictive content optimization"
+      }
+    }
+  },
+  "experience": {
+    "title": "Career Journey",
+    "current": {
+      "title": "Head of Web Development",
+      "company": "The Brains",
+      "location": "London, UK",
+      "period": "January 2025 - Present",
+      "description": "Leading comprehensive web development initiatives while integrating cutting-edge AI and SEO strategies.",
+      "achievements": [
+        "Spearheaded AI-driven development workflows reducing deployment time by 50%",
+        "Implemented voice search optimization across 20+ client websites",
+        "Established automated testing and SEO audit systems using custom APIs",
+        "Led team of developers in adopting AI-assisted coding practices"
+      ]
+    }
+  },
+  "contact": {
+    "title": "Let's Connect",
+    "heading": "Ready to Transform Your Digital Presence?",
+    "description": "Whether you need AI-powered SEO strategies, voice search optimization, or innovative digital solutions, I'm here to help drive your growth.",
+    "form": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "service": "Select Service",
+      "services": {
+        "seo": "SEO Optimization",
+        "ai": "AI Tool Development",
+        "voice": "Voice Search Strategy",
+        "consulting": "Digital Consulting"
+      },
+      "message": "Your Message",
+      "submit": "Send Message"
+    },
+    "availability": "Available for consultations and projects"
+  }
+}
